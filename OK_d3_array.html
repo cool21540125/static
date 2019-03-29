@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="jquery.min.js"></script>
+  <!-- d3 -->
+  <script src="d3.v5.min.js"></script>
+
+
+
+  <style>
+    div {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <ul>
+
+  </ul>
+
+  <script>
+
+    var ds = [1,6,3,2,7,9,8,9];
+
+    var min = d3.min(ds);
+    var max = d3.max(ds);
+    var ext = d3.extent(ds);
+    // console.log(ext);  // min && max
+
+    var minAcc = d3.min(ds, function(d) {
+      return d*3;
+    })
+    console.log(minAcc);
+
+    console.log('=================');
+
+    var ds2 = [1, 2, 3, undefined, NaN];
+    console.log(d3.sum(ds2));
+    console.log(d3.mean(ds2));
+
+    console.log('=================');
+    console.log(d3.shuffle(ds));
+
+
+
+  </script>
+</body>
+
+</html>

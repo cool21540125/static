@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- fabric -->
+  <script src="fabric.min.js"></script>
+  <!-- d3v5 -->
+  <script src="d3.v5.min.js"></script>
+
+  <style>
+    canvas {
+      /* background-color: yellowgreen; */
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+
+<body>
+  <canvas id="c"></canvas>
+
+  <select name="shape" id="shape">
+    <option value="rec">rectangle</option>
+    <option value="cir">circle</option>
+    <option value="tri">triangle</option>
+    <option value="eli">oval</option>
+  </select>
+
+</body>
+</html>
+
+
+<script>
+
+  var shapeType = d3.select('select').node().value;
+  var rec = new fabric.Rect({
+  	top: 10,
+    left: 10,
+    width: 75,
+    height: 100,
+    fill: '',
+    stroke: 'blue',
+    strokeWidth: 2
+});
+  var cir = new fabric.Circle({
+      top: 10,
+      left: 100,
+      radius: 50,
+      fill: '',
+      stroke: 'blue',
+      strokeWidth: 2
+  });
+  var tri = new fabric.Triangle({
+      top: 10,
+      left: 200,
+      width: 200,
+      height: 100,
+      fill: '',
+      stroke: 'blue',
+      strokeWidth: 2
+  });
+
+  // d3.select('#cc').on('click', () => {
+  //   cc.isDrawingMode = false;
+  //   cc.selection = true;
+  //   cc.off('mouse:down');
+  //   cc.off('mouse:move');
+  //   cc.off('mouse:up');
+  //   cc.forEachObject( o => {
+  //     console.log(o);
+  //     o.setCoords();
+  //   });
+  // });
+
+  var cc = new fabric.Canvas('c', {selection: false });
+  var isDown, shape, xx, yy;
+
+  cc.observe('mouse:down', (o) => {
+    isDown = true;
+    var ptr = cc.getPointer(o.e);
+    xx = ptr.x ;
+    yy = ptr.y ;
+    shape = new fabric.Circle({
+      left: ptr.x,
+      top: ptr.y,
+      radius: 1,
+      fill: 'red',
+      stroke: 'yellow',
+      strokeWidth: 1,
+      originX: 'center',
+      originY: 'center'
+    });
+    cc.add(shape);
+  });
+
+  cc.observe('mouse:move', (o) => {
+    if (!isDown)
+      return;
+
+    var ptr = cc.getPointer(o.e);
+    shape.set({ radius: Math.abs(xx - ptr.x) });
+    cc.renderAll();
+  });
+
+  cc.on('mouse:up', (o) => {
+    isDown = false;
+  });
+
+
+</script>

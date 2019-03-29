@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="jquery.min.js"></script>
+  <!-- d3 -->
+  <script src="d3.v5.min.js"></script>
+
+
+
+  <style>
+    div {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <ul>
+
+  </ul>
+
+  <script>
+
+    var ds = [
+      { id: 1000, color: 'red'},
+      { id: 1001, color: 'blue'},
+      { id: 1002, color: 'green'}
+    ];
+
+    var map = d3.map(ds, function(d) {
+      return d.id;
+    });
+    console.log(map);
+
+
+
+
+
+  </script>
+</body>
+
+</html>

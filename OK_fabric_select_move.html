@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- jQuery library -->
+  <script src="jquery.min.js"></script>
+  <!-- Popper JS -->
+  <script src="popper.min.js"></script>
+  <!-- bs4 -->
+  <script src="bootstrap.min.js"></script>
+  <!-- jqui -->
+  <script src="jquery-ui.min.js"></script>
+  <!-- spectrum -->
+  <script src="spectrum.min.js"></script>
+  <!-- fabric -->
+  <script src="fabric.min.js"></script>
+  <!-- d3v5 -->
+  <script src="d3.v5.min.js"></script>
+
+  <!-- spectrum -->
+  <link href="spectrum.min.css" rel="stylesheet"></link>
+  <!-- jqui -->
+  <link rel="stylesheet" href="jquery-ui.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+  <style>
+    canvas {
+      /* background-color: yellowgreen; */
+      border: 1px solid black;
+    }
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+  </style>
+</head>
+
+
+<body>
+<div class="container">
+  <div class="row">
+    <canvas id="c"></canvas>
+  </div>
+  <div class="row">
+      <i class="editMode fas fa-edit fa-3x" id="pencil"></i>
+      <i class="editMode fas fa-eraser fa-3x" id="eraser"></i>
+      <i class="editMode far fa-hand-point-up fa-3x" id="select"></i>
+    </div>
+</div>
+</body>
+</html>
+
+
+<script>
+  let ee = $('.editMode');
+  ee.eq(0).css('transform', 'scale(1.5, 1.5)');
+  ee.on('click', function() {
+    ee.each(function(i, elem) {
+      $(elem).css('transform', '');
+    });
+    $(this).css('transform', 'scale(1.5, 1.5)');
+  });
+
+  var cc = new fabric.Canvas('c');
+  cc.setHeight(600);
+  cc.setWidth(800);
+  cc.renderAll();
+
+  fabric.Object.prototype.transparentCorners = false;
+
+  cc.on('mouse:over', function(e) {
+    e.target.set('stroke', 'red');
+    cc.renderAll();
+  });
+
+  cc.on('mouse:out', function(e) {
+    e.target.set('stroke', 'green');
+    cc.renderAll();
+  });
+
+  cc.on('mouse:click', function(e) {
+    cc.getActiveObject();
+  });
+
+
+  for (var i = 15; i--;) {
+    var klass = ['Rect', 'Triangle', 'Circle'][fabric.util.getRandomInt(0, 2)];
+    var options = {
+      top: fabric.util.getRandomInt(0, 400),
+      left: fabric.util.getRandomInt(0, 600),
+      stroke : 'green',
+      strokeWidth: 1,
+      fill: '',
+    };
+
+    if (klass === 'Circle')
+      options.radius = fabric.util.getRandomInt(20, 80);
+    else {
+      options.width = fabric.util.getRandomInt(20, 80);
+      options.height = fabric.util.getRandomInt(20, 80);
+    }
+
+    cc.add(new fabric[klass](options));
+  }
+
+
+</script>

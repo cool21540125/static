@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- d3v5 -->
+  <script src="d3.v5.min.js"></script>
+
+
+  <style>
+
+  </style>
+</head>
+
+<body>
+
+
+
+  <svg>
+  </svg>
+
+
+</body>
+</html>
+
+
+<script>
+  var ds = [50, 28, 86, 34, 33, 95];
+  var padding = {top: 20, right: 20, bottom: 20, left: 20};
+  var rectStep = 35;  // rect width     contain space
+  var rectWidth = 30; // rect width not contain space
+
+  var w = 400,
+      h = 400;
+
+  var svg = d3.select('svg')
+              .attr('width', w)
+              .attr('height', h);
+
+var rect = svg.selectAll('rect')
+            .data(ds)
+            .enter()
+            .append('rect')
+            .attr('fill', 'steelblue')
+            .attr('x', function(d, i) {
+              return padding.left + i * rectStep;
+            })
+            .attr('y', function(d, i) {
+              return h - padding.bottom - d;
+            })
+            .attr('width', rectWidth)
+            .attr('height', function(d, i) {
+              return d;
+            });
+var text = svg.selectAll('text')
+            .data(ds)
+            .enter()
+            .append('text')
+            .attr('fill', 'white')
+            .attr('font-size', '14px')
+            .attr('text-anchor', 'middle')
+            .attr('x', function(d, i) {
+              return padding.left + i * rectStep;
+            })
+            .attr('y', function(d, i) {
+              console.log('d = ' + d);
+              return h - padding.bottom - d;
+            })
+            .attr('dx', rectWidth / 2)
+            .attr('dy', '1em')
+            .text(function(d) {
+              return d;
+            });
+</script>

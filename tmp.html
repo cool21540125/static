@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</link>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="bootstrap.min.js"></script>
+<!-- d3 -->
+<script src="d3.v5.min.js"></script>
+
+<style>
+  div.test {
+    border: 1px solid black;
+  }
+</style>
+</head>
+
+
+<body>
+
+
+
+  <script>
+    var d3Scale = d3.scaleLinear() //產生一個線性尺度
+		.domain([0, 500]) //傳入的值
+		.range([0 , 100]) //輸出的範圍
+
+console.log("輸出的值 = " + d3Scale(50))
+
+
+
+  </script>
+</body>
+
+</html>

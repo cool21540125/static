@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- jQuery library -->
+  <script src="jquery.min.js"></script>
+  <!-- Popper JS -->
+  <script src="popper.min.js"></script>
+  <!-- bs4 -->
+  <script src="bootstrap.min.js"></script>
+  <!-- jqui -->
+  <script src="jquery-ui.min.js"></script>
+  <!-- spectrum -->
+  <script src="spectrum.min.js"></script>
+  <!-- fabric -->
+  <script src="fabric.min.js"></script>
+  <!-- d3v5 -->
+  <script src="d3.v5.min.js"></script>
+
+  <!-- spectrum -->
+  <link href="spectrum.min.css" rel="stylesheet"></link>
+  <!-- jqui -->
+  <link rel="stylesheet" href="jquery-ui.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+  <style>
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <svg height="1200" width="1400">
+
+  </svg>
+
+
+
+</body>
+</html>
+
+
+<script>
+
+  var lines = [[80, 80], [10, 160], [200, 200], [100, 200]];
+
+  var linePath = d3.line();
+  d3.select('svg')
+    .append('path')
+    .attr('d', linePath(lines))
+    .attr('stroke', 'black')
+    .attr('stroke-width', '3px')
+    .attr('fill', 'none');
+
+
+</script>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="fabric.min.js"></script>
+  <style>
+    canvas { border: 1px solid black; }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+
+  <script>
+
+var canvas = new fabric.Canvas('c');
+    var bb = document.getElementsByTagName('body')[0];
+
+    bb.addEventListener('click', () => {
+      var itext = new fabric.IText('hello');
+      canvas.add(itext);
+    }, false);
+
+    bb.keyup(function(e) {
+      if ( e.keyCode === 46 ) {
+        deleteSelectionObjectsFromCanvas();
+      }
+    })
+
+
+
+  </script>
+</body>
+</html>
+

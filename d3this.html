@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- d3v5 -->
+  <script src="d3.v5.min.js"></script>
+</head>
+
+<body>
+  <button id="dddd>" type="button">abc</button>
+  <p id="show">QQ</p>
+
+<script>
+    d3.select('#show').on('click', function() {
+      d3.select('#show').text('3Q');
+      console.log(this);
+    });
+
+    // d3.select('#dddd').on('click', () => {
+    //   console.log(this);
+    // });
+
+  </script>
+</body>
+</html>
+
+

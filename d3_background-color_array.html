@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- d3v5 -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="bootstrap.min.js"></script>
+  <script src="d3.v5.min.js"></script>
+  <script src="jquery.min.js"></script>
+
+
+  <style>
+    div {
+      background-color: yellowgreen;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container palettes">
+
+  </div>
+</body>
+
+</html>
+
+
+<script>
+  let colorArray = ['black', 'tomato', 'orange', 'lime', 'cyan', 'navy'];
+  let colorPalettes = d3.select('div.palettes').selectAll('div')
+    .data(colorArray)
+    .enter()
+    .append('div')
+    .classed('subswatch-3 active centered palette btn', true)
+    .style('background-color', function (d) {
+      return d;
+    });
+</script>

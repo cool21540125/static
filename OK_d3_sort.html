@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="jquery.min.js"></script>
+  <!-- d3 -->
+  <script src="d3.v5.min.js"></script>
+
+
+
+  <style>
+    div {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <ul>
+
+  </ul>
+
+  <script>
+
+    var ds = [1,6,3,2,7,9,8];
+
+    var tag = d3.select('ul').selectAll('li');
+    var u = tag.data(ds);
+
+    // u.enter().append('li').text(function(d) { return d; }).sort(function(a,b) {
+    //   return b-a;
+    // });
+    u.enter().append('li').text(function(d) { return d; }).sort(d3.ascending)
+
+    u.exit().remove();
+
+
+
+  </script>
+</body>
+
+</html>

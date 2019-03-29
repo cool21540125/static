@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<h1 id="bigOne"></h1>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBNsZDzoY-hRuEkeIGZIA01qyYmwk7n1c8",
+    // authDomain: "init-f24a0.firebaseapp.com",
+    databaseURL: "https://init-f24a0.firebaseio.com",
+    projectId: "init-f24a0",
+    storageBucket: "init-f24a0.appspot.com",
+    messagingSenderId: "425997802074"
+  };
+  firebase.initializeApp(config);
+
+  var bigOne = document.getElementById('bigOne');
+  var dbRef = firebase.database().ref().child('text');
+  dbRef.on('value', snap => bigOne.innerText = snap.val());
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="jquery.min.js"></script>
+  <!-- Popper JS -->
+  <script src="popper.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="bootstrap.min.js"></script>
+  <!-- d3 -->
+  <script src="d3.v5.min.js"></script>
+
+
+
+  <style>
+    div {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div id="demo container">
+    <button class="btn btn-success">hi</button>
+  </div>
+  <div class="chg container">
+    sifafijo
+  </div>
+  <script>
+
+    var b = d3.select('button');
+    b.on('click', ()=> {
+      // d3.select('div.chg').append('div').text('hi').style({'fill': '#f90'})
+      d3.select('div.chg').transition().duration(2000).style('background-color', 'lightblue')
+    });
+
+
+
+  </script>
+</body>
+
+</html>

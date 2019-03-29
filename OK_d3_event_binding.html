@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- d3 -->
+  <script src="d3.v5.min.js"></script>
+
+</head>
+
+
+<body>
+  <!-- <input type="button" value="Click" class="c1" id="c1" /> -->
+  <a href="#" id="c1">abc</a>
+  <hr />
+  <input type="button" value="Init" id="init" />
+
+
+  <script>
+    var bb = d3.select('#init');
+
+    var cfgs = {
+      class: 'demo',
+      self: this,
+      click: () => {
+        console.log(this);
+        console.log(self);
+      },
+    }
+
+    bb.on('click', function() {
+      console.log(cfgs);
+      var d3Selection = d3.select('#c1');
+      var yn = d3Selection.classed(`demo`)
+      d3Selection.classed(`demo`, !yn);
+      d3Selection.on('click', cfgs.click);
+    }, cfgs);
+
+    // bb.on('click', () => {
+    //   console.log(this); // this === Window
+    // });
+
+
+
+
+  </script>
+</body>
+
+</html>

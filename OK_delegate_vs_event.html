@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="jquery.min.js"></script>
+</head>
+
+
+
+
+
+
+
+<body>
+  <button id="addNew">new</button>
+
+  <button class="qq">Say Hello 0</button>
+</body>
+</html>
+
+
+<script>
+  $('#addNew').on('click', function() {
+    $('body').append('<button class="qq">say hello</button>');
+  });
+
+  // $('.qq').on('click', function() {
+  //   sayHello();
+  // })
+
+  $('body').on('click', '.qq', function() {
+    console.log(event.target);
+    sayHello();
+  })
+
+
+  function sayHello() {
+    console.log('hello');
+  }
+</script>

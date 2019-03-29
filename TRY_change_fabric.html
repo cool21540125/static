@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="jquery.min.js"></script>
+  <!-- fabric -->
+  <script src="fabric.min.js"></script>
+
+  <script src="d3.v5.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+  <style>
+    .canvasContextMenu {
+      border: 1px solid black;
+      position: absolute;
+    }
+    canvas {
+      /* background-color: yellowgreen; */
+      border: 1px solid black;
+    }
+    body {
+      margin: 10px 0px 0px 0px;
+      padding: 0px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="row">
+    <canvas id="c" class="select"></canvas>
+  </div>
+
+  <div class="row">
+    <div class="canvasContextMenu hidden">
+      <div class="container">
+        <div class="draw-tool row">
+          <div class="btn palette" style="background-color: red;"></div>
+          <div class="btn" style="background-color: blue;"></div>
+          <div class="btn" style="background-color: black;"></div>
+        </div>
+        <div class="draw-panwidth row">
+          <input type="range" min="1" max="10" value="1" class="slider">
+        </div>
+        <div class="draw-colorbar row"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <i class="editMode fas fa-edit fa-3x" id="pencil"></i>
+    <i class="editMode fas fa-eraser fa-3x" id="eraser"></i>
+    <i class="editMode far fa-hand-point-up fa-3x" id="select"></i>
+  </div>
+
+</div>
+
+
+</body>
+</html>
+
+
+<script>
+  var cc = new fabric.Canvas(`c`);
+  var ee = $(`.editMode`);
+  var isDrawingMode = false;
+  var editDrawMode = 'select';
+  var erasing = false;
+  var ctm = d3.select(`.canvasContextMenu`);
+
+  var init = function() {
+    var initUI = function() { // a
+      ee.eq(2).css('transform', 'scale(1.5, 1.5)');
+    }
+
+    var initCanvasSize = function() { // b
+      cc.setHeight(600);
+      cc.setWidth(800);
+      cc.renderAll();
+    }
+
+    var initCanvasObjects = function() {  // c
+      for (var i = 20; i--;) {
+        var klass = ['Rect', 'Triangle', 'Circle'][fabric.util.getRandomInt(0, 2)];
+        var options = {
+          top: fabric.util.getRandomInt(0, 400),
+          left: fabric.util.getRandomInt(0, 600),
+          stroke : 'black',
+          strokeWidth: 1,
+          fill: '',
+        };
+
+        if (klass === 'Circle')
+          options.radius = fabric.util.getRandomInt(20, 80);
+        else {
+          options.width = fabric.util.getRandomInt(20, 80);
+          options.height = fabric.util.getRandomInt(20, 80);
+        }
+
+        cc.add(new fabric[klass](options));
+      }
+    }
+
+    // fabric.Object.prototype.selectable = true;
+    initUI(); // a
+    initCanvasSize(); // b
+    initCanvasObjects();  // c
+
+    $(`#pencil`).on('click', function(e) {
+      editDrawMode = 'pencil';
+      // cc.selection = false;
+      cc.isDrawingMode = true;
+      // console.log('Pencil Mode');
+    });
+
+    $(`#select`).on('click', function(e) {
+      editDrawMode = 'select';
+      // cc.selectable = true;
+      // fabric.Object.prototype.selectable = true;
+      cc.selection = true;
+      cc.isDrawingMode = false;
+      // console.log('Select Mode');
+    });
+
+    $(`#eraser`).on('click', function(e) {
+      editDrawMode = 'eraser';
+      // cc.selectable = false;
+      // fabric.Object.prototype.selectable = false;
+      cc.selection = false;
+      cc.isDrawingMode = false;
+      // console.log('Eraser Mode');
+      cc.renderAll();
+    });
+
+    cc.on('mouse:down', function(evt) {
+      if (editDrawMode === 'eraser') {
+        erasing = true;
+        if (evt.target) {
+          cc.remove(evt.target);
+        }
+      }
+    });
+
+    cc.on('mouse:over', function(evt) {
+      if (editDrawMode === 'eraser' && erasing) {
+        cc.remove(evt.target);
+      }
+    });
+
+    cc.on('mouse:up', function(evt) {
+      if (editDrawMode === 'eraser') {
+        erasing = false;
+      }
+    });
+
+    cc.on('mouse:move', function(evt) {
+      if (editDrawMode === 'eraser' && erasing) {
+        cc.remove(evt.target);
+        // console.log('=== Erasing something - move ==');
+      }
+    });
+
+  }
+
+  var triggerEvent = function() {
+
+    var switchMode = function() { // 1
+      ee.on('click', function() {
+        ee.each(function(i, elem) {
+          $(elem).css('transform', '');
+        });
+        $(this).css('transform', 'scale(1.5, 1.5)');
+      });
+    }
+
+    var canvasEvent = function() { // 2
+      cc.on('mouse:over', function(e) {
+        if (e.target) {
+          e.target.set('stroke', 'red');
+          cc.renderAll();
+        }
+      });
+
+      cc.on('mouse:out', function(e) {
+        if (e.target) {
+          e.target.set('stroke', 'black');
+          cc.renderAll();
+        }
+      });
+    }
+
+    switchMode();   // 1
+    canvasEvent();  // 2
+  }
+
+  init();
+  triggerEvent();
+
+  var c;
+
+  // selection.change
+  cc.on('selection:created', () => {
+    c = cc.getActiveObject();
+    if (c) {
+      ctm.classed('hidden', false);
+      var cx = event.pageX;
+      var cy = event.pageY;
+      ctm.style('top', c.top + c.height + 15 + 'px').style('left', c.left + 'px')
+      // console.log(cx, cy);
+      // ctm.transition().duration(2000).style('background-color', 'lightblue')
+
+      // ctm.node().style.top = '200px';
+      // ctm.style('top', c.top + c.height + 15 + 'px').style('left', c.left + 'px')
+    }
+  });
+
+  cc.on('mouse:move', () => {
+    if (c)
+      ctm.style('top', c.top + c.height + 15 + 'px').style('left', c.left + 'px')
+  });
+
+  cc.on('selection:updated', () => {
+    c = cc.getActiveObject();
+    if (c)
+      ctm.style('top', c.top + c.height + 15 + 'px').style('left', c.left + 'px')
+  })
+
+  cc.on('selection:cleared', () => {
+    ctm.classed('hidden', true);
+  })
+
+
+
+  /*
+    開始測試 cursor 阿~~~~~~~~~~~~~
+    https://jsfiddle.net/Fidel90/7kmf3jz2/
+    ~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~
+  */
+
+</script>

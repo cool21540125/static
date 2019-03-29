@@ -1,0 +1,50 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.2.0"></script>
+</head>
+<body>
+
+  <div id="view"></div>
+
+
+  <script>
+    var view;
+
+    var render = spec => {
+      view = new vega.View(vega.parse(spec), {
+        renderer:  'canvas',  // renderer (canvas or svg)
+        container: '#view',   // parent DOM container
+        hover:     true       // enable hover processing
+      });
+      return view.runAsync();
+    }
+
+    var q = fetch('https://vega.github.io/vega/examples/bar-chart.vg.json');
+
+    q.then(function(res) {
+      return res.json();
+    }).then(function(spec) {
+      view = new vega.View(vega.parse(spec), {
+        renderer: 'canvas',
+        container: '#view',
+        hover: true
+      });
+      return view.runAsync();
+    });
+
+
+
+    // fetch('https://vega.github.io/vega/examples/bar-chart.vg.json')
+    //   .then(res => res.json())
+    //   .then(spec => render(spec))
+    //   .catch(err => console.error(err));
+
+    // function render(spec) {
+    //   view = new vega.View(vega.parse(spec), {
+    //     renderer:  'canvas',  // renderer (canvas or svg)
+    //     container: '#view',   // parent DOM container
+    //     hover:     true       // enable hover processing
+    //   });
+    //   return view.runAsync();
+    // }
+  </script>
+</body>

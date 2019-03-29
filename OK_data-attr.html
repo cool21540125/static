@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- spectrum -->
+  <link href="spectrum.min.css" rel="stylesheet">
+  </link>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="bootstrap.min.js"></script>
+  <!-- d3 -->
+  <script src="d3.v5.min.js"></script>
+
+
+
+  <style>
+    div#qq {
+      border: 1px solid black;
+      height: 200px;
+    }
+    div#btnc {
+      border: 1px dashed blue;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div id="qq" class="container">
+    <p id="show"></p>
+  </div>
+
+  <div id="btnc" class="container col-sm-3 float-left">
+    <div class="row">
+
+      <input type="button" data-mode="pencil" value="Draw" class="btn btn-success">
+      <input type="button" data-mode="select" value="Select" class="btn btn-primary">
+      <input type="button" data-mode="eraser" value="Eraser" class="btn btn-warning">
+    </div>
+    <div class="row">
+      <input type="button" data-mode="select" value="Information" class="btn btn-info">
+    </div>
+    <div class="row">
+      <input type="button" data-mode="select" value="Other" class="btn btn-dark">
+    </div>
+  </div>
+
+  <script>
+
+    // Showing
+    var p = $('p#show');
+    p.text($('[data-mode]'));
+
+    //
+    $('[data-mode]').on('click', function() {
+      p.text($(this).data('mode'));
+    })
+
+
+
+  </script>
+</body>
+
+</html>
